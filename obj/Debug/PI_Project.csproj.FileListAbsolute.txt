@@ -10,3 +10,15 @@ E:\Files\PI_Project\obj\Debug\PI_Project.csproj.CoreCompileInputs.cache
 E:\Files\PI_Project\obj\Debug\PI_Project.csproj.CopyComplete
 E:\Files\PI_Project\obj\Debug\PI_Project.exe
 E:\Files\PI_Project\obj\Debug\PI_Project.pdb
+E:\Files\Image-processing-project\bin\Debug\PI_Project.exe.config
+E:\Files\Image-processing-project\bin\Debug\PI_Project.exe
+E:\Files\Image-processing-project\bin\Debug\PI_Project.pdb
+E:\Files\Image-processing-project\bin\Debug\OpenCvSharp.dll
+E:\Files\Image-processing-project\obj\Debug\PI_Project.csproj.AssemblyReference.cache
+E:\Files\Image-processing-project\obj\Debug\PI_Project.ImageEffects.resources
+E:\Files\Image-processing-project\obj\Debug\PI_Project.Properties.Resources.resources
+E:\Files\Image-processing-project\obj\Debug\PI_Project.csproj.GenerateResource.cache
+E:\Files\Image-processing-project\obj\Debug\PI_Project.csproj.CoreCompileInputs.cache
+E:\Files\Image-processing-project\obj\Debug\PI_Project.csproj.CopyComplete
+E:\Files\Image-processing-project\obj\Debug\PI_Project.exe
+E:\Files\Image-processing-project\obj\Debug\PI_Project.pdb

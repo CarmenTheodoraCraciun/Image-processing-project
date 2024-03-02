@@ -14,7 +14,7 @@ To integrate and run the project locally, follow these simple steps:
 
 1. **Clone the Repository:** Use the following command to clone the repository to your local machine:
     ```bash
-    git clone [URL to the repository]
+    git clone "https://github.com/CarmenTheodoraCraciun/Image-processing-project.git"
     ```
 
 2. **Open in Visual Studio:** Navigate to the project directory and open the ".sln" file in Visual Studio.

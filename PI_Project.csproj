@@ -38,6 +38,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,16 +50,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormApplyToBinaryImage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormApplyToBinaryImage.Designer.cs">
+      <DependentUpon>FormApplyToBinaryImage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Effects.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormHistogram.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormHistogram.Designer.cs">
+      <DependentUpon>FormHistogram.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormApplyToBinaryImage.resx">
+      <DependentUpon>FormApplyToBinaryImage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormHistogram.resx">
+      <DependentUpon>FormHistogram.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

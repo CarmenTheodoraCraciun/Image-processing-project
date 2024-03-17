@@ -22,3 +22,5 @@ E:\Files\Image-processing-project\obj\Debug\PI_Project.csproj.CoreCompileInputs.
 E:\Files\Image-processing-project\obj\Debug\PI_Project.csproj.CopyComplete
 E:\Files\Image-processing-project\obj\Debug\PI_Project.exe
 E:\Files\Image-processing-project\obj\Debug\PI_Project.pdb
+E:\Files\Image-processing-project\obj\Debug\PI_Project.FormHistogram.resources
+E:\Files\Image-processing-project\obj\Debug\PI_Project.FormApplyToBinaryImage.resources

@@ -343,8 +343,113 @@ namespace PI_Project
             return ditheredImage;
         }
 
+        // Algoritmul Traversare in latime
+        public static List<List<Point>> BFS(Bitmap bitmap)
+        {
+            List<List<Point>> objects = new List<List<Point>>();
+            bool[,] visited = new bool[bitmap.Width, bitmap.Height];
 
+            // Iterăm prin fiecare pixel în imagine
+            for (int y = 0; y < bitmap.Height; y++)
+            {
+                for (int x = 0; x < bitmap.Width; x++)
+                {
+                    // Obținem valoarea de luminanță a pixelului curent
+                    Color pixelColor = bitmap.GetPixel(x, y);
+                    int luminance = (int)(0.299 * pixelColor.R + 0.587 * pixelColor.G + 0.114 * pixelColor.B);
 
+                    // Verificăm dacă pixelul este negru și nevizitat
+                    if (luminance < 128 && !visited[x, y])
+                    {
+                        // Inițializăm o nouă listă pentru a stoca punctele obiectului curent
+                        List<Point> obj = new List<Point>();
+
+                        // Inițializăm o coadă pentru a efectua traversarea în lățime
+                        Queue<Point> queue = new Queue<Point>();
+
+                        // Adăugăm punctul inițial în coadă și îl marcam ca vizitat
+                        queue.Enqueue(new Point(x, y));
+                        visited[x, y] = true;
+
+                        // Începem traversarea în lățime
+                        while (queue.Count > 0)
+                        {
+                            Point current = queue.Dequeue();
+
+                            // Adăugăm punctul curent la obiectul curent
+                            obj.Add(current);
+
+                            // Definim direcțiile posibile de deplasare
+                            int[] dx = { 1, -1, 0, 0 };
+                            int[] dy = { 0, 0, 1, -1 };
+
+                            // Parcurgem direcțiile posibile
+                            for (int i = 0; i < 4; i++)
+                            {
+                                int newX = current.X + dx[i];
+                                int newY = current.Y + dy[i];
+
+                                // Verificăm dacă noua poziție este validă și nevizitată
+                                if (newX >= 0 && newX < bitmap.Width && newY >= 0 && newY < bitmap.Height &&
+                                    !visited[newX, newY])
+                                {
+                                    Color newPixelColor = bitmap.GetPixel(newX, newY);
+                                    int newLuminance = (int)(0.299 * newPixelColor.R + 0.587 * newPixelColor.G + 0.114 * newPixelColor.B);
+
+                                    // Verificăm dacă noua poziție este un pixel negru
+                                    if (newLuminance < 128)
+                                    {
+                                        // Adăugăm noua poziție în coadă și o marcam ca vizitată
+                                        queue.Enqueue(new Point(newX, newY));
+                                        visited[newX, newY] = true;
+                                    }
+                                }
+                            }
+                        }
+
+                        // Adăugăm obiectul curent la lista de obiecte
+                        objects.Add(obj);
+                    }
+                }
+            }
+
+            return objects;
+        }
+
+        // Algoritmul Rosenfeld
+        public static Bitmap ApplyRosenfeld(Bitmap inputImage)
+        {
+            // Creează o copie a imaginii de intrare pentru a nu modifica imaginea originală
+            Bitmap outputImage = new Bitmap(inputImage.Width, inputImage.Height);
+
+            // Parcurge fiecare pixel al imaginii de intrare
+            for (int y = 0; y < inputImage.Height; y++)
+            {
+                for (int x = 0; x < inputImage.Width; x++)
+                {
+                    // Obține culoarea pixelului
+                    Color pixelColor = inputImage.GetPixel(x, y);
+
+                    // Calculează valoarea medie a componentelor de culoare pentru a determina
+                    // dacă pixelul este negru sau alb
+                    int averageColor = (pixelColor.R + pixelColor.G + pixelColor.B) / 3;
+
+                    // Setează culoarea corespunzătoare în imaginea rezultat
+                    if (averageColor < 128)
+                    {
+                        // Pixel negru
+                        outputImage.SetPixel(x, y, Color.Black);
+                    }
+                    else
+                    {
+                        // Pixel alb
+                        outputImage.SetPixel(x, y, Color.White);
+                    }
+                }
+            }
+
+            return outputImage;
+        }
     }
 
 }

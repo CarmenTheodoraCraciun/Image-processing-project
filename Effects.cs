@@ -416,6 +416,71 @@ namespace PI_Project
             return objects;
         }
 
+        // Calculul ariilor obiectelor dintr-o imagine data ca matrice de puncte
+        public static List<double> CalculateAreas(List<List<Point>> objects)
+        {
+            List<double> areas = new List<double>();
+
+            foreach (var obj in objects)
+            {
+                double area = obj.Count;
+                areas.Add(area);
+            }
+
+            return areas;
+        }
+
+        // Calculul perimetrelor obiectelor dintr-o imagine data ca matrice de puncte
+        public static List<double> CalculatePerimeters(List<List<Point>> objects)
+        {
+            List<double> perimeters = new List<double>();
+
+            foreach (var obj in objects)
+            {
+                double perimeter = 0;
+
+                for (int i = 0; i < obj.Count; i++)
+                {
+                    Point currentPoint = obj[i];
+                    Point nextPoint = obj[(i + 1) % obj.Count];
+
+                    double distance = Math.Sqrt(Math.Pow(nextPoint.X - currentPoint.X, 2) + Math.Pow(nextPoint.Y - currentPoint.Y, 2));
+
+                    perimeter += distance;
+                }
+
+                perimeters.Add(perimeter);
+            }
+
+            return perimeters;
+        }
+
+        // Calculul centrele de greutate obiectelor dintr-o imagine data ca matrice de puncte
+        public static List<Point> CalculateCentroids(List<List<Point>> objects)
+        {
+            List<Point> centroids = new List<Point>();
+
+            foreach (var obj in objects)
+            {
+                int sumX = 0;
+                int sumY = 0;
+                int totalPoints = obj.Count;
+
+                foreach (var point in obj)
+                {
+                    sumX += point.X;
+                    sumY += point.Y;
+                }
+
+                int centerX = sumX / totalPoints;
+                int centerY = sumY / totalPoints;
+
+                centroids.Add(new Point(centerX, centerY));
+            }
+
+            return centroids;
+        }
+
         // Algoritmul Rosenfeld
         public static Bitmap ApplyRosenfeld(Bitmap inputImage)
         {

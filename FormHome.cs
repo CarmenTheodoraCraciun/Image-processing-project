@@ -51,7 +51,6 @@ namespace PI_Project
                 button5.Enabled = true; 
                 button6.Enabled = true;
                 button7.Enabled = true;
-                button8.Enabled = true;
             }
         }
 
@@ -96,7 +95,7 @@ namespace PI_Project
             if(grayscaleImage == null)
                 grayscaleImage = Effects.ConvertToGrayscale((Bitmap)pictureBox1.Image);
             if (binaryImage == null)
-                binaryImage = Effects.ConvertToBinary(grayscaleImage, 128);
+                binaryImage = Effects.ConvertToBinary(grayscaleImage);
 
             label2.Text = "Apply binary.";
             this.pictureBox2.Image = binaryImage;
@@ -132,49 +131,39 @@ namespace PI_Project
             if (grayscaleImage == null)
                 grayscaleImage = Effects.ConvertToGrayscale((Bitmap)pictureBox1.Image);
             if (binaryImage == null)
-                binaryImage = Effects.ConvertToBinary(grayscaleImage, 128);
+                binaryImage = Effects.ConvertToBinary(grayscaleImage);
 
             label2.Text = "Apply binary.";
             this.pictureBox2.Image = binaryImage;
             this.pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
 
+            FormApplyOnImage window = null;
             if (radioButton4.Checked)
-            {
-                FormApplyToBinaryImage window = new FormApplyToBinaryImage(binaryImage, "BFS");
-                window.Show();
-            }
+                window = new FormApplyOnImage(binaryImage, "BFS");
             else if (radioButton3.Checked)
-            {
-                FormApplyToBinaryImage window = new FormApplyToBinaryImage(binaryImage, "RsfAlg");
-                window.Show();
-            }
-            else
-                MessageBox.Show("Choose the type of algorithm");
-        }
-
-        private void button8_Click(object sender, EventArgs e)
-        {
-            if (grayscaleImage == null)
-                grayscaleImage = Effects.ConvertToGrayscale((Bitmap)pictureBox1.Image);
-            if (binaryImage == null)
-                binaryImage = Effects.ConvertToBinary(grayscaleImage, 128);
-
-            label2.Text = "Apply binary.";
-            this.pictureBox2.Image = binaryImage;
-            this.pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-
-            if (radioButton6.Checked)
-            {
-                FormApplyToBinaryImage window = new FormApplyToBinaryImage(binaryImage, "Dilate");
-                window.Show();
-            }
+                window = new FormApplyOnImage(binaryImage, "RsfAlg");
+            else if (radioButton6.Checked)
+                window = new FormApplyOnImage(binaryImage, "Dilate");
             else if (radioButton5.Checked)
-            {
-                FormApplyToBinaryImage window = new FormApplyToBinaryImage(binaryImage, "Erode");
-                window.Show();
-            }
+                window = new FormApplyOnImage(binaryImage, "Erode");
+            else if (radioButton7.Checked)
+                window = new FormApplyOnImage(grayscaleImage, "Binarize");
+            else if (radioButton8.Checked)
+                window = new FormApplyOnImage((Bitmap)pictureBox1.Image, "Negation");
+            else if (radioButton9.Checked)
+                window = new FormApplyOnImage((Bitmap)pictureBox1.Image, "Contrast");
+            else if (radioButton10.Checked)
+                window = new FormApplyOnImage((Bitmap)pictureBox1.Image, "GammaCorrection");
+            else if (radioButton11.Checked)
+                window = new FormApplyOnImage((Bitmap)pictureBox1.Image, "Brigthness");
+            else if (radioButton12.Checked)
+                window = new FormApplyOnImage(grayscaleImage, "HistoEq");
             else
                 MessageBox.Show("Choose the type of algorithm");
+
+            if (window != null)
+                window.Show();
         }
+
     }
 }

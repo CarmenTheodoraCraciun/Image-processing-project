@@ -18,7 +18,7 @@ namespace PI_Project
         // Creaza o imagine pornind de la o matrice de puncte
         public static Bitmap DrawImage(List<List<System.Drawing.Point>> pointsLists)
         {
-            // Determină dimensiunile imaginii în funcție de dimensiunile punctelor
+            // Determina dimensiunile imaginii in functie de dimensiunile punctelor
             int maxX = 0;
             int maxY = 0;
             foreach (List<Point> points in pointsLists)
@@ -32,18 +32,18 @@ namespace PI_Project
                 }
             }
 
-            // Creează o imagine cu dimensiunile corespunzătoare
+            // Creeaza o imagine cu dimensiunile corespunzatoare
             Bitmap graphBitmap = new Bitmap(maxX + 1, maxY + 1);
             using (Graphics g = Graphics.FromImage(graphBitmap))
             {
                 g.Clear(Color.White);
 
-                // Desenează graficul pe imaginea nouă
+                // Deseneaza graficul pe imaginea noua
                 foreach (List<Point> points in pointsLists)
                 {
                     foreach (Point point in points)
                     {
-                        // Setează simbolul în funcție de existența punctului
+                        // Seteaza simbolul in functe de existenta punctului
                         char symbol = points.Count > 0 ? '>' : '<';
                         g.DrawString(symbol.ToString(), new Font("Arial", 8), Brushes.Black, point.X, point.Y);
                     }
@@ -53,82 +53,7 @@ namespace PI_Project
             return graphBitmap;
         }
 
-        // Creaza o imagine pornind de la o lista de puncte
-        public static Bitmap DrawImage(List<Point> points)
-        {
-            // Determină dimensiunile imaginii în funcție de coordonatele punctelor
-            int maxX = 0;
-            int maxY = 0;
-            foreach (var point in points)
-            {
-                if (point.X > maxX)
-                    maxX = point.X;
-                if (point.Y > maxY)
-                    maxY = point.Y;
-            }
-
-            // Creează o imagine cu dimensiunile corespunzătoare
-            Bitmap graphBitmap = new Bitmap(maxX + 1, maxY + 1);
-            using (Graphics g = Graphics.FromImage(graphBitmap))
-            {
-                g.Clear(Color.White);
-
-                // Desenează liniile între puncte
-                Pen pen = new Pen(Color.Black);
-                pen.Width = 2; // Setează grosimea liniei
-                pen.StartCap = LineCap.Round; // Capăt rotund al liniei
-
-                for (int i = 0; i < points.Count - 1; i++)
-                {
-                    g.DrawLine(pen, points[i], points[i + 1]);
-                }
-            }
-
-            return graphBitmap;
-        }
-
         /*******************************TEME*******************************/
-
-        /*********************Tema 1*********************/
-
-        /*
-        // Incarca imaginea si afisaza-o
-        private void button1_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog Opfile = new OpenFileDialog();
-            Opfile.Filter = "Image Files (*.bmp, *.png, *.jpg, *.jpeg)|*.bmp;*.png;*.jpg;*.jpeg";
-            if (DialogResult.OK == Opfile.ShowDialog())
-            {
-                this.pictureBox1.Image = new Bitmap(Opfile.FileName);
-                this.pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-
-                grayscaleImage = null;
-                hsvImage = null;
-                binaryImage = null;
-
-                button2.Enabled = true;
-                button3.Enabled = true;
-                button4.Enabled = true;
-                button5.Enabled = true; 
-                button6.Enabled = true;
-                button7.Enabled = true;
-            }
-        }
-
-        // Salvare imagine pe disk
-        private void button2_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "JPEG files(*.jpeg)|*.jpeg";
-            if (DialogResult.OK == sfd.ShowDialog())
-            {
-                if (this.pictureBox2 != null)
-                    this.pictureBox2.Image.Save(sfd.FileName, ImageFormat.Jpeg);
-                else
-                    this.pictureBox1.Image.Save(sfd.FileName, ImageFormat.Jpeg);
-            }
-        }
-         */
 
         /*********************Tema 2*********************/
 
@@ -159,30 +84,8 @@ namespace PI_Project
             return grayscaleImage;
         }
 
-        // Conversia la HSV
-        public static Bitmap ConvertToHSV(Bitmap originalImage)
-        {
-            Bitmap hsvImage = new Bitmap(originalImage.Width, originalImage.Height);
-
-            for (int i = 0; i < originalImage.Width; i++)
-            {
-                for (int j = 0; j < originalImage.Height; j++)
-                {
-                    Color rgbColor = originalImage.GetPixel(i, j);
-                    // Converteste RGB la HSV
-                    float h, s, v;
-                    RGBToHSV(rgbColor.R, rgbColor.G, rgbColor.B, out h, out s, out v);
-                    // Converteste HSV înapoi la RGB pentru afișare.
-                    Color hsvColor = HSVToRGB(h, s, v);
-                    // Setează pixelul în noua imagine.
-                    hsvImage.SetPixel(i, j, hsvColor);
-                }
-            }
-            return hsvImage;
-        }
-
         // Conversia de la RGB la HSV
-        public static void RGBToHSV(int r, int g, int b, out float h, out float s, out float v)
+        private static void RGBToHSV(int r, int g, int b, out float h, out float s, out float v)
         {
             float min, max, delta;
 
@@ -214,7 +117,7 @@ namespace PI_Project
         }
 
         // Conversia de la HSV la RGB
-        public static Color HSVToRGB(float h, float s, float v)
+        private static Color HSVToRGB(float h, float s, float v)
         {
             int i;
             float f, p, q, t;
@@ -245,8 +148,29 @@ namespace PI_Project
             }
         }
 
+        // Conversia la HSV
+        public static Bitmap ConvertToHSV(Bitmap originalImage)
+        {
+            Bitmap hsvImage = new Bitmap(originalImage.Width, originalImage.Height);
+
+            for (int i = 0; i < originalImage.Width; i++)
+            {
+                for (int j = 0; j < originalImage.Height; j++)
+                {
+                    Color rgbColor = originalImage.GetPixel(i, j);
+                    // Converteste RGB la HSV
+                    float h, s, v;
+                    RGBToHSV(rgbColor.R, rgbColor.G, rgbColor.B, out h, out s, out v);
+                    // Converteste HSV înapoi la RGB pentru afiaare.
+                    Color hsvColor = HSVToRGB(h, s, v);
+                    hsvImage.SetPixel(i, j, hsvColor);
+                }
+            }
+            return hsvImage;
+        }
+
         // Conversia de la o imagine gri la binara (alb negru)
-        public static Bitmap ConvertToBinary(Bitmap grayscaleImage, int threshold)
+        public static Bitmap ConvertToBinary(Bitmap grayscaleImage, int threshold = 128)
         {
             Bitmap binaryImage = new Bitmap(grayscaleImage.Width, grayscaleImage.Height);
 
@@ -255,14 +179,12 @@ namespace PI_Project
                 for (int j = 0; j < grayscaleImage.Height; j++)
                 {
                     Color pixelColor = grayscaleImage.GetPixel(i, j);
-                    int grayValue = pixelColor.R;  // Avem o imagine în tonuri de gri, așa că putem utiliza oricare dintre canalele R, G, B
-
-                    // Aplică pragul
+                    int grayValue = pixelColor.R;
+                    // Aplica pragul
                     Color binaryColor = (grayValue < threshold) ? Color.Black : Color.White;
                     binaryImage.SetPixel(i, j, binaryColor);
                 }
             }
-
             return binaryImage;
         }
 
@@ -270,22 +192,20 @@ namespace PI_Project
 
         // Generarea histogramei color
         // Histograma este organizata pe trei canale de culoare: rosu, verde si albastru.
-        public static int[][] GenerateColorHistogram(Image image)
+        public static int[][] GenerateColorHistogram(Bitmap image)
         {
             int[][] histograms = new int[3][];
             histograms[0] = new int[256]; // Red
             histograms[1] = new int[256]; // Green
             histograms[2] = new int[256]; // Blue
 
-            Bitmap bitmap = new Bitmap(image);
-
             // Parcurgerea pixel cu pixel a imaginii
-            for (int i = 0; i < bitmap.Width; i++)
+            for (int i = 0; i < image.Width; i++)
             {
-                for (int j = 0; j < bitmap.Height; j++)
+                for (int j = 0; j < image.Height; j++)
                 {
                     // Obtinerea culorii pixelului la poziția (i, j)
-                    Color pixelColor = bitmap.GetPixel(i, j);
+                    Color pixelColor = image.GetPixel(i, j);
 
                     // Incrementarea corespunzatoare a frecventei culorii în histogramele separate
                     ++histograms[0][pixelColor.R];
@@ -647,6 +567,7 @@ namespace PI_Project
 
         /*********************Tema 6*********************/
 
+        // Convertire a unui Bitmap la Mat
         private static Mat BitmapToMat(Bitmap bitmap)
         {
             var bmpData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), System.Drawing.Imaging.ImageLockMode.ReadOnly, bitmap.PixelFormat);
@@ -655,6 +576,7 @@ namespace PI_Project
             return mat;
         }
 
+        // Gasirea contururilor unei imagini
         public static List<List<Point>> FindContours(Bitmap binaryImage)
         {
             // Coversie Bitmat la OpenCV.Mat
@@ -682,6 +604,7 @@ namespace PI_Project
             return contoursList;
         }
 
+        // Extragerea codurilor inlantuite pentru obiectele din imagine
         public static List<int> extractChainCode(List<List<Point>> contours)
         {
             // Verificare dacă s-au găsit contururi
@@ -737,6 +660,8 @@ namespace PI_Project
         }
 
         /*********************Tema 7*********************/
+
+        // Convertire a unui Mat la Bitmap
         private static Bitmap MatToBitmap(Mat mat)
         {
             try
@@ -776,6 +701,7 @@ namespace PI_Project
             }
         }
 
+        // Convertire a unui Bitmap la OpenCvSharp.Mat
         private static Mat BitmapToMatOpenCV(Bitmap bitmap)
         {
             // Verificăm dacă bitmapul este valid
@@ -818,6 +744,7 @@ namespace PI_Project
             return mat;
         }
 
+        // Dilatarea unei imagini binare
         public static Bitmap DilateBinaryImage(Bitmap binary, int kernelSize = 3)
         {
             Mat binaryImage = BitmapToMatOpenCV(binary);
@@ -831,6 +758,7 @@ namespace PI_Project
             return MatToBitmap(dilatedImage);
         }
 
+        // Erodarea unei imagini binare
         public static Bitmap ErodeBinaryImage(Bitmap binary, int kernelSize = 3)
         {
             // Convertiți imaginea binară într-un obiect Mat
@@ -850,6 +778,278 @@ namespace PI_Project
         }
 
         /*********************Tema 8*********************/
+
+        // Calculeaza probabilitatea pentru fiecare nivel de intensitate grayscale in functie de histograma imaginii
+        private static double[] CalculateProbabilities(int[] histogram, int totalPixels)
+        {
+            double[] probabilities = new double[256];
+            for (int i = 0; i < 256; i++)
+            {
+                probabilities[i] = (double)histogram[i] / totalPixels;
+            }
+            return probabilities;
+        }
+
+        // Calculeaza probabilitatile cumulative pentru fiecare nivel de intensitate
+        // Probabilitatea cumulativa pentru un anumit nivel de intensitate este suma probabilitatilor tuturor nivelurilor de intensitate de la 0 la acel nivel.
+        private static double[] CalculateCumulativeProbabilities(double[] probabilities)
+        {
+            double[] cumulativeProbabilities = new double[256];
+            cumulativeProbabilities[0] = probabilities[0];
+            for (int i = 1; i < 256; i++)
+            {
+                cumulativeProbabilities[i] = cumulativeProbabilities[i - 1] + probabilities[i];
+            }
+            return cumulativeProbabilities;
+        }
+
+        // Calculeaza media globala a intensitatilor grayscale.
+        private static double CalculateGlobalMean(double[] probabilities)
+        {
+            double globalMean = 0;
+            for (int i = 0; i < 256; i++)
+            {
+                globalMean += i * probabilities[i];
+            }
+            return globalMean;
+        }
+
+        // Gaseste pragul optim de binarizare folosind metoda Otsu
+        // Pragul optim este acel nivel de intensitate care maximizează variatia interclaselor intre clasele de pixeli (obiect si fundal).
+        private static int FindOptimalThreshold(double[] cumulativeProbabilities, double[] probabilities, double globalMean)
+        {
+            double maxVariance = 0;
+            int optimalThreshold = 0;
+            for (int t = 0; t < 256; t++)
+            {
+                double backgroundProbability = cumulativeProbabilities[t];
+                double foregroundProbability = 1 - backgroundProbability;
+
+                if (backgroundProbability == 0 || foregroundProbability == 0)
+                    continue;
+
+                double backgroundMean = 0;
+                for (int i = 0; i <= t; i++)
+                {
+                    backgroundMean += i * probabilities[i] / backgroundProbability;
+                }
+
+                double foregroundMean = (globalMean - backgroundProbability * backgroundMean) / foregroundProbability;
+
+                double betweenClassVariance = backgroundProbability * foregroundProbability * Math.Pow(backgroundMean - foregroundMean, 2);
+                if (betweenClassVariance > maxVariance)
+                {
+                    maxVariance = betweenClassVariance;
+                    optimalThreshold = t;
+                }
+            }
+            return optimalThreshold;
+        }
+
+        // Efectueaza binarizarea automata a unei imagini grayscale
+        public static Bitmap BinarizeAutomatically(Bitmap grayscaleImage)
+        {
+            int[] histogram = GenerateGrayscaleHistogram(grayscaleImage);
+            double[] probabilities = CalculateProbabilities(histogram, grayscaleImage.Width * grayscaleImage.Height);
+            double[] cumulativeProbabilities = CalculateCumulativeProbabilities(probabilities);
+            double globalMean = CalculateGlobalMean(probabilities);
+            int optimalThreshold = FindOptimalThreshold(cumulativeProbabilities, probabilities, globalMean);
+            Bitmap binaryImage = new Bitmap(grayscaleImage.Width, grayscaleImage.Height);
+
+            // Aplica binarizarea folosind pragul optim gasit
+            for (int x = 0; x < grayscaleImage.Width; x++)
+            {
+                for (int y = 0; y < grayscaleImage.Height; y++)
+                {
+                    Color pixelColor = grayscaleImage.GetPixel(x, y);
+                    int intensity = (int)(pixelColor.R * 0.3 + pixelColor.G * 0.59 + pixelColor.B * 0.11);
+                    Color binaryColor = intensity < optimalThreshold ? Color.Black : Color.White;
+                    binaryImage.SetPixel(x, y, binaryColor);
+                }
+            }
+            return binaryImage;
+        }
+
+        // Negativarea imaginii
+        public static Bitmap InvertImage(Bitmap originalImage)
+        {
+            // Creează o nouă imagine cu aceleași dimensiuni ca imaginea originală
+            Bitmap invertedImage = new Bitmap(originalImage.Width, originalImage.Height);
+
+            // Parcurge fiecare pixel al imaginii originale
+            for (int x = 0; x < originalImage.Width; x++)
+            {
+                for (int y = 0; y < originalImage.Height; y++)
+                {
+                    // Obține culoarea pixelului la poziția (x, y)
+                    Color originalColor = originalImage.GetPixel(x, y);
+
+                    // Inversează culorile pixelului
+                    Color invertedColor = Color.FromArgb(
+                        255 - originalColor.R,   // Inversarea componentei roșii
+                        255 - originalColor.G,   // Inversarea componentei verzi
+                        255 - originalColor.B    // Inversarea componentei albastre
+                    );
+
+                    // Setează culoarea pixelului în imaginea inversată
+                    invertedImage.SetPixel(x, y, invertedColor);
+                }
+            }
+
+            return invertedImage;
+        }
+
+        // Schimbarea contrastului
+        public static Bitmap AdjustContrast(Bitmap originalImage, float contrastLevel = 2.5f)
+        {
+            Bitmap adjustedImage = new Bitmap(originalImage.Width, originalImage.Height);
+
+            // Iterăm prin fiecare pixel al imaginii
+            for (int x = 0; x < originalImage.Width; x++)
+            {
+                for (int y = 0; y < originalImage.Height; y++)
+                {
+                    // Obținem pixelul original
+                    Color originalPixel = originalImage.GetPixel(x, y);
+
+                    // Convertim pixelul la intensitatea grii (valoare de la 0 la 255)
+                    int grayIntensity = (int)(originalPixel.R * 0.3 + originalPixel.G * 0.59 + originalPixel.B * 0.11);
+
+                    // Aplicăm tranziția de contrast la intensitatea grii
+                    int adjustedIntensity = (int)(contrastLevel * (grayIntensity - 128) + 128);
+
+                    // Asigurăm că intensitatea rămâne în intervalul valid [0, 255]
+                    adjustedIntensity = Math.Max(0, Math.Min(255, adjustedIntensity));
+
+                    // Creăm un nou pixel cu valoarea de contrast ajustată
+                    Color adjustedPixel = Color.FromArgb(originalPixel.A, adjustedIntensity, adjustedIntensity, adjustedIntensity);
+
+                    // Actualizăm pixelul în noua imagine
+                    adjustedImage.SetPixel(x, y, adjustedPixel);
+                }
+            }
+
+            return adjustedImage;
+        }
+
+        // Aplicarea corectiei gamma
+        public static Bitmap ApplyGammaCorrection(Bitmap originalImage, double gamma = 1.5f)
+        {
+            // Creează o copie a imaginii originale pentru a evita modificarea acesteia
+            Bitmap adjustedImage = (Bitmap)originalImage.Clone();
+
+            // Parcurge fiecare pixel al imaginii și aplică corecția gamma
+            for (int x = 0; x < adjustedImage.Width; x++)
+            {
+                for (int y = 0; y < adjustedImage.Height; y++)
+                {
+                    Color originalColor = adjustedImage.GetPixel(x, y);
+
+                    // Extrage valorile R, G și B ale pixelului original
+                    double red = originalColor.R / 255.0;
+                    double green = originalColor.G / 255.0;
+                    double blue = originalColor.B / 255.0;
+
+                    // Aplică corecția gamma pentru fiecare componentă de culoare
+                    double correctedRed = Math.Pow(red, 1.0 / gamma);
+                    double correctedGreen = Math.Pow(green, 1.0 / gamma);
+                    double correctedBlue = Math.Pow(blue, 1.0 / gamma);
+
+                    // Asigură că valorile corectate sunt în intervalul [0, 1]
+                    correctedRed = Math.Max(0.0, Math.Min(1.0, correctedRed));
+                    correctedGreen = Math.Max(0.0, Math.Min(1.0, correctedGreen));
+                    correctedBlue = Math.Max(0.0, Math.Min(1.0, correctedBlue));
+
+                    // Creează un nou color cu valorile corectate
+                    Color correctedColor = Color.FromArgb(
+                        (int)(correctedRed * 255),
+                        (int)(correctedGreen * 255),
+                        (int)(correctedBlue * 255)
+                    );
+
+                    // Setează pixelul corectat în imaginea rezultată
+                    adjustedImage.SetPixel(x, y, correctedColor);
+                }
+            }
+
+            return adjustedImage;
+        }
+
+        // Schimbarea luminozitatii
+        public static Bitmap AdjustBrightness(Bitmap originalImage, int brightnessLevel = 70)
+        {
+            Bitmap adjustedImage = new Bitmap(originalImage.Width, originalImage.Height);
+
+            // Parcurgem fiecare pixel al imaginii originale
+            for (int x = 0; x < originalImage.Width; x++)
+            {
+                for (int y = 0; y < originalImage.Height; y++)
+                {
+                    // Obținem culoarea pixelului
+                    Color originalColor = originalImage.GetPixel(x, y);
+
+                    // Calculăm noua valoare a culorii pentru luminozitatea modificată
+                    int newRed = originalColor.R + brightnessLevel;
+                    int newGreen = originalColor.G + brightnessLevel;
+                    int newBlue = originalColor.B + brightnessLevel;
+
+                    // Asigurăm că valorile noilor culori sunt între 0 și 255
+                    newRed = Math.Max(0, Math.Min(255, newRed));
+                    newGreen = Math.Max(0, Math.Min(255, newGreen));
+                    newBlue = Math.Max(0, Math.Min(255, newBlue));
+
+                    // Construim noua culoare cu luminozitatea modificată
+                    Color adjustedColor = Color.FromArgb(newRed, newGreen, newBlue);
+
+                    // Setăm culoarea pixelului în imaginea ajustată
+                    adjustedImage.SetPixel(x, y, adjustedColor);
+                }
+            }
+
+            return adjustedImage;
+        }
+
+        // Algoritmul de egalizare al histogramei
+        public static Bitmap EqualizeHistogram(Bitmap grayscaleImage)
+        {
+            // Convert the image to grayscale if necessary
+            if (grayscaleImage.PixelFormat != PixelFormat.Format8bppIndexed)
+            {
+                grayscaleImage = Effects.ConvertToGrayscale(grayscaleImage);
+            }
+
+            // Calculate histogram
+            int[] histogram = Effects.GenerateGrayscaleHistogram(grayscaleImage);
+
+            // Calculate probabilities
+            double[] probabilities = Effects.CalculateProbabilities(histogram, grayscaleImage.Width * grayscaleImage.Height);
+
+            // Calculate cumulative probabilities
+            double[] cumulativeProbabilities = Effects.CalculateCumulativeProbabilities(probabilities);
+
+            // Calculate transformation mapping
+            int[] transformationMap = new int[256];
+            for (int i = 0; i < 256; i++)
+            {
+                transformationMap[i] = (int)Math.Round(255 * cumulativeProbabilities[i]);
+            }
+
+            // Apply histogram equalization transformation
+            Bitmap equalizedImage = new Bitmap(grayscaleImage.Width, grayscaleImage.Height);
+            for (int x = 0; x < grayscaleImage.Width; x++)
+            {
+                for (int y = 0; y < grayscaleImage.Height; y++)
+                {
+                    Color pixelColor = grayscaleImage.GetPixel(x, y);
+                    int intensity = pixelColor.R; // Assuming the image is grayscale
+                    int newIntensity = transformationMap[intensity];
+                    Color newPixelColor = Color.FromArgb(newIntensity, newIntensity, newIntensity);
+                    equalizedImage.SetPixel(x, y, newPixelColor);
+                }
+            }
+
+            return equalizedImage;
+        }
 
     }
 

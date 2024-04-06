@@ -104,11 +104,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FormApplyToBinaryImage.cs">
+    <Compile Include="FormApplyOnImage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormApplyToBinaryImage.Designer.cs">
-      <DependentUpon>FormApplyToBinaryImage.cs</DependentUpon>
+    <Compile Include="FormApplyOnImage.Designer.cs">
+      <DependentUpon>FormApplyOnImage.cs</DependentUpon>
     </Compile>
     <Compile Include="Effects.cs" />
     <Compile Include="FormHome.cs">
@@ -125,8 +125,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FormApplyToBinaryImage.resx">
-      <DependentUpon>FormApplyToBinaryImage.cs</DependentUpon>
+    <EmbeddedResource Include="FormApplyOnImage.resx">
+      <DependentUpon>FormApplyOnImage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormHome.resx">
       <DependentUpon>FormHome.cs</DependentUpon>

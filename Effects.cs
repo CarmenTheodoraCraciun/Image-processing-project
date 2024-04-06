@@ -1,14 +1,137 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using OpenCvSharp;
+
+using Point = System.Drawing.Point;
+using System.Drawing.Imaging;
+using Emgu.CV.Reg;
+
 
 namespace PI_Project
 {
     public static class Effects
     {
+        // Creaza o imagine pornind de la o matrice de puncte
+        public static Bitmap DrawImage(List<List<System.Drawing.Point>> pointsLists)
+        {
+            // Determină dimensiunile imaginii în funcție de dimensiunile punctelor
+            int maxX = 0;
+            int maxY = 0;
+            foreach (List<Point> points in pointsLists)
+            {
+                foreach (Point point in points)
+                {
+                    if (point.X > maxX)
+                        maxX = point.X;
+                    if (point.Y > maxY)
+                        maxY = point.Y;
+                }
+            }
+
+            // Creează o imagine cu dimensiunile corespunzătoare
+            Bitmap graphBitmap = new Bitmap(maxX + 1, maxY + 1);
+            using (Graphics g = Graphics.FromImage(graphBitmap))
+            {
+                g.Clear(Color.White);
+
+                // Desenează graficul pe imaginea nouă
+                foreach (List<Point> points in pointsLists)
+                {
+                    foreach (Point point in points)
+                    {
+                        // Setează simbolul în funcție de existența punctului
+                        char symbol = points.Count > 0 ? '>' : '<';
+                        g.DrawString(symbol.ToString(), new Font("Arial", 8), Brushes.Black, point.X, point.Y);
+                    }
+                }
+            }
+
+            return graphBitmap;
+        }
+
+        // Creaza o imagine pornind de la o lista de puncte
+        public static Bitmap DrawImage(List<Point> points)
+        {
+            // Determină dimensiunile imaginii în funcție de coordonatele punctelor
+            int maxX = 0;
+            int maxY = 0;
+            foreach (var point in points)
+            {
+                if (point.X > maxX)
+                    maxX = point.X;
+                if (point.Y > maxY)
+                    maxY = point.Y;
+            }
+
+            // Creează o imagine cu dimensiunile corespunzătoare
+            Bitmap graphBitmap = new Bitmap(maxX + 1, maxY + 1);
+            using (Graphics g = Graphics.FromImage(graphBitmap))
+            {
+                g.Clear(Color.White);
+
+                // Desenează liniile între puncte
+                Pen pen = new Pen(Color.Black);
+                pen.Width = 2; // Setează grosimea liniei
+                pen.StartCap = LineCap.Round; // Capăt rotund al liniei
+
+                for (int i = 0; i < points.Count - 1; i++)
+                {
+                    g.DrawLine(pen, points[i], points[i + 1]);
+                }
+            }
+
+            return graphBitmap;
+        }
+
+        /*******************************TEME*******************************/
+
+        /*********************Tema 1*********************/
+
+        /*
+        // Incarca imaginea si afisaza-o
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog Opfile = new OpenFileDialog();
+            Opfile.Filter = "Image Files (*.bmp, *.png, *.jpg, *.jpeg)|*.bmp;*.png;*.jpg;*.jpeg";
+            if (DialogResult.OK == Opfile.ShowDialog())
+            {
+                this.pictureBox1.Image = new Bitmap(Opfile.FileName);
+                this.pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+
+                grayscaleImage = null;
+                hsvImage = null;
+                binaryImage = null;
+
+                button2.Enabled = true;
+                button3.Enabled = true;
+                button4.Enabled = true;
+                button5.Enabled = true; 
+                button6.Enabled = true;
+                button7.Enabled = true;
+            }
+        }
+
+        // Salvare imagine pe disk
+        private void button2_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "JPEG files(*.jpeg)|*.jpeg";
+            if (DialogResult.OK == sfd.ShowDialog())
+            {
+                if (this.pictureBox2 != null)
+                    this.pictureBox2.Image.Save(sfd.FileName, ImageFormat.Jpeg);
+                else
+                    this.pictureBox1.Image.Save(sfd.FileName, ImageFormat.Jpeg);
+            }
+        }
+         */
+
+        /*********************Tema 2*********************/
+
         // Formula ponderata pentru calculul valorii grayscale
         private static int CalculateWeightedValue(Color color)
         {
@@ -142,6 +265,8 @@ namespace PI_Project
 
             return binaryImage;
         }
+
+        /*********************Tema 3*********************/
 
         // Generarea histogramei color
         // Histograma este organizata pe trei canale de culoare: rosu, verde si albastru.
@@ -343,6 +468,8 @@ namespace PI_Project
             return ditheredImage;
         }
 
+        /*********************Tema 4*********************/
+
         // Algoritmul Traversare in latime
         public static List<List<Point>> BFS(Bitmap bitmap)
         {
@@ -416,6 +543,43 @@ namespace PI_Project
             return objects;
         }
 
+        // Algoritmul Rosenfeld
+        public static Bitmap ApplyRosenfeld(Bitmap inputImage)
+        {
+            // Creează o copie a imaginii de intrare pentru a nu modifica imaginea originală
+            Bitmap outputImage = new Bitmap(inputImage.Width, inputImage.Height);
+
+            // Parcurge fiecare pixel al imaginii de intrare
+            for (int y = 0; y < inputImage.Height; y++)
+            {
+                for (int x = 0; x < inputImage.Width; x++)
+                {
+                    // Obține culoarea pixelului
+                    Color pixelColor = inputImage.GetPixel(x, y);
+
+                    // Calculează valoarea medie a componentelor de culoare pentru a determina
+                    // dacă pixelul este negru sau alb
+                    int averageColor = (pixelColor.R + pixelColor.G + pixelColor.B) / 3;
+
+                    // Setează culoarea corespunzătoare în imaginea rezultat
+                    if (averageColor < 128)
+                    {
+                        // Pixel negru
+                        outputImage.SetPixel(x, y, Color.Black);
+                    }
+                    else
+                    {
+                        // Pixel alb
+                        outputImage.SetPixel(x, y, Color.White);
+                    }
+                }
+            }
+
+            return outputImage;
+        }
+
+        /*********************Tema 5*********************/
+
         // Calculul ariilor obiectelor dintr-o imagine data ca matrice de puncte
         public static List<double> CalculateAreas(List<List<Point>> objects)
         {
@@ -481,40 +645,212 @@ namespace PI_Project
             return centroids;
         }
 
-        // Algoritmul Rosenfeld
-        public static Bitmap ApplyRosenfeld(Bitmap inputImage)
+        /*********************Tema 6*********************/
+
+        private static Mat BitmapToMat(Bitmap bitmap)
         {
-            // Creează o copie a imaginii de intrare pentru a nu modifica imaginea originală
-            Bitmap outputImage = new Bitmap(inputImage.Width, inputImage.Height);
+            var bmpData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), System.Drawing.Imaging.ImageLockMode.ReadOnly, bitmap.PixelFormat);
+            var mat = new Mat(bitmap.Height, bitmap.Width, MatType.CV_8UC4, bmpData.Scan0);
+            bitmap.UnlockBits(bmpData);
+            return mat;
+        }
 
-            // Parcurge fiecare pixel al imaginii de intrare
-            for (int y = 0; y < inputImage.Height; y++)
+        public static List<List<Point>> FindContours(Bitmap binaryImage)
+        {
+            // Coversie Bitmat la OpenCV.Mat
+            Mat image = BitmapToMat(binaryImage);
+            Cv2.CvtColor(image, image, ColorConversionCodes.BGR2GRAY);
+            Cv2.Threshold(image, image, 127, 255, ThresholdTypes.Binary);
+
+            // Gasi contururile
+            OpenCvSharp.Point[][] contours;
+            HierarchyIndex[] hierarchy;
+            Cv2.FindContours(image, out contours, out hierarchy, RetrievalModes.List, ContourApproximationModes.ApproxSimple);
+
+            // Convertim contururile la matrice de pointeri
+            List<List<System.Drawing.Point>> contoursList = new List<List<System.Drawing.Point>>();
+            foreach (var contour in contours)
             {
-                for (int x = 0; x < inputImage.Width; x++)
+                List<System.Drawing.Point> contourList = new List<System.Drawing.Point>();
+                foreach (var point in contour)
                 {
-                    // Obține culoarea pixelului
-                    Color pixelColor = inputImage.GetPixel(x, y);
+                    contourList.Add(new System.Drawing.Point(point.X, point.Y));
+                }
+                contoursList.Add(contourList);
+            }
 
-                    // Calculează valoarea medie a componentelor de culoare pentru a determina
-                    // dacă pixelul este negru sau alb
-                    int averageColor = (pixelColor.R + pixelColor.G + pixelColor.B) / 3;
+            return contoursList;
+        }
 
-                    // Setează culoarea corespunzătoare în imaginea rezultat
-                    if (averageColor < 128)
+        public static List<int> extractChainCode(List<List<Point>> contours)
+        {
+            // Verificare dacă s-au găsit contururi
+            if (contours.Count == 0)
+            {
+                Console.WriteLine("Nu s-au putut găsi contururi.");
+                return new List<int>(); // Returnează o listă goală în caz de eșec
+            }
+
+            // Inițializarea lanțului de coduri
+            var chainCode = new List<int>();
+
+            // Parcurgerea fiecărui contur și extragerea lanțului de coduri
+            foreach (var contour in contours)
+            {
+                for (int i = 0; i < contour.Count - 1; i++)
+                {
+                    var point1 = contour[i];
+                    var point2 = contour[i + 1];
+                    var deltaX = point2.X - point1.X;
+                    var deltaY = point2.Y - point1.Y;
+
+                    // Calculul direcției între punctele consecutive
+                    int direction = -1; // Valoare invalidă
+
+                    if (deltaX == 0 && deltaY == -1)
+                        direction = 0;
+                    else if (deltaX == 1 && deltaY == -1)
+                        direction = 1;
+                    else if (deltaX == 1 && deltaY == 0)
+                        direction = 2;
+                    else if (deltaX == 1 && deltaY == 1)
+                        direction = 3;
+                    else if (deltaX == 0 && deltaY == 1)
+                        direction = 4;
+                    else if (deltaX == -1 && deltaY == 1)
+                        direction = 5;
+                    else if (deltaX == -1 && deltaY == 0)
+                        direction = 6;
+                    else if (deltaX == -1 && deltaY == -1)
+                        direction = 7;
+
+                    // Verificare pentru a asigura că direction a fost atribuită înainte de adăugare la lanțul de coduri
+                    if (direction != -1)
                     {
-                        // Pixel negru
-                        outputImage.SetPixel(x, y, Color.Black);
-                    }
-                    else
-                    {
-                        // Pixel alb
-                        outputImage.SetPixel(x, y, Color.White);
+                        // Adăugarea direcției la lanțul de coduri
+                        chainCode.Add(direction);
                     }
                 }
             }
 
-            return outputImage;
+            return chainCode;
         }
+
+        /*********************Tema 7*********************/
+        private static Bitmap MatToBitmap(Mat mat)
+        {
+            try
+            {
+                // Verificați dacă Mat este valid
+                if (mat == null || mat.Width == 0 || mat.Height == 0)
+                    return null;
+
+                // Verificați tipul de date al Mat și construiți bitmap-ul corespunzător
+                Bitmap bitmap = null;
+                if (mat.Depth() == MatType.CV_8U)
+                {
+                    if (mat.Channels() == 1)
+                    {
+                        bitmap = new Bitmap(mat.Width, mat.Height, mat.Width * mat.Channels(), PixelFormat.Format8bppIndexed, mat.Data);
+                        ColorPalette pal = bitmap.Palette;
+                        for (int i = 0; i < 256; i++)
+                            pal.Entries[i] = Color.FromArgb(255, i, i, i);
+                        bitmap.Palette = pal;
+                    }
+                    else if (mat.Channels() == 3)
+                    {
+                        bitmap = new Bitmap(mat.Width, mat.Height, mat.Width * mat.Channels(), PixelFormat.Format24bppRgb, mat.Data);
+                    }
+                    else if (mat.Channels() == 4)
+                    {
+                        bitmap = new Bitmap(mat.Width, mat.Height, mat.Width * mat.Channels(), PixelFormat.Format32bppArgb, mat.Data);
+                    }
+                }
+
+                return bitmap;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error converting Mat to Bitmap: " + ex.Message);
+                return null;
+            }
+        }
+
+        private static Mat BitmapToMatOpenCV(Bitmap bitmap)
+        {
+            // Verificăm dacă bitmapul este valid
+            if (bitmap == null)
+                return null;
+
+            // Obținem dimensiunile bitmapului
+            int width = bitmap.Width;
+            int height = bitmap.Height;
+
+            // Convertim bitmapul într-un obiect de tip Mat
+            Mat mat = new Mat(height, width, MatType.CV_8UC3);
+            BitmapData bmpData = bitmap.LockBits(new Rectangle(0, 0, width, height), ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
+            try
+            {
+                // Copiem datele din Bitmap în Mat
+                unsafe
+                {
+                    byte* bmpPtr = (byte*)bmpData.Scan0.ToPointer();
+                    for (int y = 0; y < height; y++)
+                    {
+                        byte* matPtr = (byte*)mat.Ptr(y).ToPointer();
+                        for (int x = 0; x < width; x++)
+                        {
+                            // Copiem valorile de la Bitmap la Mat (în ordinea BGR)
+                            matPtr[3 * x + 0] = bmpPtr[3 * x + 0]; // Blue
+                            matPtr[3 * x + 1] = bmpPtr[3 * x + 1]; // Green
+                            matPtr[3 * x + 2] = bmpPtr[3 * x + 2]; // Red
+                        }
+                        bmpPtr += bmpData.Stride;
+                    }
+                }
+            }
+            finally
+            {
+                // Eliberăm resursele de blocare
+                bitmap.UnlockBits(bmpData);
+            }
+
+            return mat;
+        }
+
+        public static Bitmap DilateBinaryImage(Bitmap binary, int kernelSize = 3)
+        {
+            Mat binaryImage = BitmapToMatOpenCV(binary);
+            // Definirea kernelului pentru operația de dilatare
+            Mat kernel = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(kernelSize, kernelSize));
+
+            // Aplicarea operației de dilatare pe imaginea binară
+            Mat dilatedImage = new Mat();
+            Cv2.Dilate(binaryImage, dilatedImage, kernel);
+
+            return MatToBitmap(dilatedImage);
+        }
+
+        public static Bitmap ErodeBinaryImage(Bitmap binary, int kernelSize = 3)
+        {
+            // Convertiți imaginea binară într-un obiect Mat
+            Mat binaryImage = BitmapToMat(binary);
+
+            // Definiți kernelul pentru operația de eroziune
+            Mat kernel = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(kernelSize, kernelSize));
+
+            // Aplicați operația de eroziune pe imaginea binară
+            Mat erodedImage = new Mat();
+            Cv2.Erode(binaryImage, erodedImage, kernel);
+
+            // Convertiți imaginea rezultată înapoi într-un obiect Bitmap
+            Bitmap resultBitmap = MatToBitmap(erodedImage);
+
+            return resultBitmap;
+        }
+
+        /*********************Tema 8*********************/
+
     }
 
 }

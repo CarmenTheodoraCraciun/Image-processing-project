@@ -31,6 +31,7 @@ namespace PI_Project
         * Handler
         *-----------------------------------------*/
 
+        // Incarca imaginea si afisaza-o
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog Opfile = new OpenFileDialog();
@@ -50,6 +51,7 @@ namespace PI_Project
                 button5.Enabled = true; 
                 button6.Enabled = true;
                 button7.Enabled = true;
+                button8.Enabled = true;
             }
         }
 
@@ -144,6 +146,31 @@ namespace PI_Project
             else if (radioButton3.Checked)
             {
                 FormApplyToBinaryImage window = new FormApplyToBinaryImage(binaryImage, "RsfAlg");
+                window.Show();
+            }
+            else
+                MessageBox.Show("Choose the type of algorithm");
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            if (grayscaleImage == null)
+                grayscaleImage = Effects.ConvertToGrayscale((Bitmap)pictureBox1.Image);
+            if (binaryImage == null)
+                binaryImage = Effects.ConvertToBinary(grayscaleImage, 128);
+
+            label2.Text = "Apply binary.";
+            this.pictureBox2.Image = binaryImage;
+            this.pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+
+            if (radioButton6.Checked)
+            {
+                FormApplyToBinaryImage window = new FormApplyToBinaryImage(binaryImage, "Dilate");
+                window.Show();
+            }
+            else if (radioButton5.Checked)
+            {
+                FormApplyToBinaryImage window = new FormApplyToBinaryImage(binaryImage, "Erode");
                 window.Show();
             }
             else

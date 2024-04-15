@@ -167,6 +167,30 @@ namespace PI_Project
                 this.Width = processedImage.Width;
                 this.Height = processedImage.Height;
             }
+            else if (type.Equals("Smoot"))
+            {
+                dataGridView1.Visible = false;
+                listBox1.Visible = false;
+                this.Text = "Smoothing Image";
+
+                Bitmap processedImage = Effects.SmoothingImage(image);
+                pictureBox1.Image = processedImage;
+                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+                this.Width = processedImage.Width;
+                this.Height = processedImage.Height;
+            }
+            else if (type.Equals("DtcEdges"))
+            {
+                dataGridView1.Visible = false;
+                listBox1.Visible = false;
+                this.Text = "Detect Edges";
+
+                Bitmap processedImage = Effects.DetectEdges(image);
+                pictureBox1.Image = processedImage;
+                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+                this.Width = processedImage.Width;
+                this.Height = processedImage.Height;
+            }
         }
     }
 }

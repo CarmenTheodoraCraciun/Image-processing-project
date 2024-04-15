@@ -23,6 +23,7 @@ namespace PI_Project
         * Helper
         *-----------------------------------------*/
 
+        private Bitmap original = null;
         private Bitmap grayscaleImage = null;
         private Bitmap hsvImage = null;
         private Bitmap binaryImage = null;
@@ -41,6 +42,7 @@ namespace PI_Project
                 this.pictureBox1.Image = new Bitmap(Opfile.FileName);
                 this.pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
 
+                original = (Bitmap)(this.pictureBox1.Image);
                 grayscaleImage = null;
                 hsvImage = null;
                 binaryImage = null;
@@ -158,6 +160,10 @@ namespace PI_Project
                 window = new FormApplyOnImage((Bitmap)pictureBox1.Image, "Brigthness");
             else if (radioButton12.Checked)
                 window = new FormApplyOnImage(grayscaleImage, "HistoEq");
+            else if (radioButton13.Checked)
+                window = new FormApplyOnImage(original, "Smoot");
+            else if (radioButton14.Checked)
+                window = new FormApplyOnImage(original, "DtcEdges");
             else
                 MessageBox.Show("Choose the type of algorithm");
 

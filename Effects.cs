@@ -1051,6 +1051,36 @@ namespace PI_Project
             return equalizedImage;
         }
 
+        /*********************Tema 9*********************/
+
+        // Filtru "trece jos" (de netezire a imaginilor, de eliminare a zgomotelor), 
+        public static Bitmap SmoothingImage(Bitmap bitmap)
+        {
+            // Convertim imaginea Bitmap într-o matrice OpenCV
+            Mat inputImage = BitmapToMat(bitmap);
+
+            // Aici poți aplica filtrele necesare folosind funcțiile din OpenCV
+            Cv2.GaussianBlur(inputImage, inputImage, new OpenCvSharp.Size(3, 3), 0);
+
+            // Convertim matricea rezultată înapoi într-o imagine Bitma
+            return MatToBitmap(inputImage);
+        }
+
+        public static Bitmap DetectEdges(Bitmap bitmap)
+        {
+            // Convertim imaginea Bitmap într-o matrice OpenCV
+            Mat inputImage = BitmapToMat(bitmap);
+            // Convertim imaginea într-o imagine gri pentru a facilita detectarea marginilor
+            Mat grayImage = new Mat();
+            Cv2.CvtColor(inputImage, grayImage, ColorConversionCodes.BGR2GRAY);
+
+            // Aplicăm filtrul Canny pentru detectarea marginilor
+            Mat edgesImage = new Mat();
+            Cv2.Canny(grayImage, edgesImage, 50, 150);
+
+            return MatToBitmap(inputImage);
+        }
+
     }
 
 }

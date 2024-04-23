@@ -17,9 +17,50 @@ namespace PI_Project
             this.type = type;
         }
 
+        private void NotVisible()
+        {
+            dataGridView1.Visible = false;
+            listBox1.Visible = false;
+        }
+
+        private void PutImage(Bitmap image)
+        {
+            pictureBox1.Image = image;
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.Width = image.Width;
+            pictureBox1.Height = image.Height;
+            
+        }
+        private void ResizeWindow()
+        {
+            this.Width = pictureBox1.Width;
+            this.Height = pictureBox1.Height;
+        }
+
         private void ApplyToBinaryImage_Load(object sender, EventArgs e)
         {
-            if (type.Equals("BFS"))
+            if (type.Equals("Gray"))
+            {
+                NotVisible();
+                this.Text = "Grayscale";
+                PutImage(this.image);
+                ResizeWindow();
+            }
+            else if (type.Equals("Hsv"))
+            {
+                NotVisible();
+                this.Text = "HSV";
+                PutImage(Effects.ConvertToHSV(image));
+                ResizeWindow();
+            }
+            else if (type.Equals("Binary"))
+            {
+                NotVisible();
+                this.Text = "Binary";
+                PutImage(this.image);
+                ResizeWindow();
+            }
+            else if (type.Equals("BFS"))
             {
                 this.Text = "Breadth-First Search";
 
@@ -57,139 +98,101 @@ namespace PI_Project
             }
             else if (type.Equals("RsfAlg"))
             {
-                dataGridView1.Visible = false;
-                listBox1.Visible = false;
+                NotVisible();
                 this.Text = "Rosenfeld's algorithm";
-
-                Bitmap processedImage = Effects.ApplyRosenfeld(image);
-                pictureBox1.Image = processedImage;
-                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-
-                MessageBox.Show($"{processedImage.Width}, {processedImage.Height}");
-                pictureBox1.Width = processedImage.Width;
-                pictureBox1.Height = processedImage.Height;
-                this.Width = processedImage.Width;
-                this.Height = processedImage.Height;
+                PutImage(Effects.ApplyRosenfeld(image));
+                ResizeWindow();
             }
             else if (type.Equals("Dilate"))
             {
-                dataGridView1.Visible = false;
-                listBox1.Visible= false;
+                NotVisible();
                 this.Text = "Dilate Image";
-
-                Bitmap processedImage = Effects.DilateBinaryImage(image);
-                pictureBox1.Image = processedImage;
-                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-                this.Width = processedImage.Width;
-                this.Height = processedImage.Height;
+                PutImage(Effects.DilateBinaryImage(image));
+                ResizeWindow();
             }
             else if (type.Equals("Erode"))
             {
-                dataGridView1.Visible = false;
-                listBox1.Visible = false;
+                NotVisible();
                 this.Text = "Erode Image";
-
-                Bitmap processedImage = Effects.ErodeBinaryImage(image);
-                pictureBox1.Image = processedImage;
-                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-                this.Width = processedImage.Width;
-                this.Height = processedImage.Height;
+                PutImage(Effects.ErodeBinaryImage(image));
+                ResizeWindow();
             }
             else if (type.Equals("Binarize"))
             {
-                dataGridView1.Visible = false;
-                listBox1.Visible = false;
+                NotVisible();
                 this.Text = "Apply Binarize Automatically";
-
-                Bitmap processedImage = Effects.BinarizeAutomatically(image);
-                pictureBox1.Image = processedImage;
-                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-                this.Width = processedImage.Width;
-                this.Height = processedImage.Height;
+                PutImage(Effects.BinarizeAutomatically(image));
+                ResizeWindow();
             }
             else if (type.Equals("Negation"))
             {
-                dataGridView1.Visible = false;
-                listBox1.Visible = false;
+                NotVisible();
                 this.Text = "Apply Negation";
-
-                Bitmap processedImage = Effects.InvertImage(image);
-                pictureBox1.Image = processedImage;
-                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-                this.Width = processedImage.Width;
-                this.Height = processedImage.Height;
+                PutImage(Effects.InvertImage(image));
+                ResizeWindow();
             }
             else if (type.Equals("Contrast"))
             {
-                dataGridView1.Visible = false;
-                listBox1.Visible = false;
+                NotVisible();
                 this.Text = "Contrast Change";
-
-                Bitmap processedImage = Effects.AdjustContrast(image);
-                pictureBox1.Image = processedImage;
-                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-                this.Width = processedImage.Width;
-                this.Height = processedImage.Height;
+                PutImage(Effects.AdjustContrast(image));
+                ResizeWindow();
             }
             else if (type.Equals("GammaCorrection"))
             {
-                dataGridView1.Visible = false;
-                listBox1.Visible = false;
+                NotVisible();
                 this.Text = "Gamma Correction";
-
-                Bitmap processedImage = Effects.ApplyGammaCorrection(image);
-                pictureBox1.Image = processedImage;
-                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-                this.Width = processedImage.Width;
-                this.Height = processedImage.Height;
+                PutImage(Effects.ApplyGammaCorrection(image));
+                ResizeWindow();
             }
             else if (type.Equals("Brigthness"))
             {
-                dataGridView1.Visible = false;
-                listBox1.Visible = false;
+                NotVisible();
                 this.Text = "Brigthness Change";
-
-                Bitmap processedImage = Effects.AdjustBrightness(image);
-                pictureBox1.Image = processedImage;
-                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-                this.Width = processedImage.Width;
-                this.Height = processedImage.Height;
+                PutImage(Effects.AdjustBrightness(image));
+                ResizeWindow();
             }
             else if (type.Equals("HistoEq"))
             {
-                dataGridView1.Visible = false;
-                listBox1.Visible = false;
+                NotVisible();
                 this.Text = "Histogram Equal Algorithm";
-
-                Bitmap processedImage = Effects.EqualizeHistogram(image);
-                pictureBox1.Image = processedImage;
-                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-                this.Width = processedImage.Width;
-                this.Height = processedImage.Height;
+                PutImage(Effects.EqualizeHistogram(image));
+                ResizeWindow();
             }
-            else if (type.Equals("Smoot"))
+            else if (type.Equals("SmootSpace"))
             {
-                dataGridView1.Visible = false;
-                listBox1.Visible = false;
-                this.Text = "Smoothing Image";
-
-                Bitmap processedImage = Effects.SmoothingImage(image);
-                pictureBox1.Image = processedImage;
-                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-                this.Width = processedImage.Width;
-                this.Height = processedImage.Height;
+                NotVisible();
+                this.Text = "Smoothing Image in space domain";
+                PutImage(Effects.SmoothingImageSpace(image));
+                ResizeWindow();
             }
-            else if (type.Equals("DtcEdges"))
+            else if (type.Equals("DtcEdgesSpace"))
             {
-                dataGridView1.Visible = false;
-                listBox1.Visible = false;
-                this.Text = "Detect Edges";
-
-                Bitmap processedImage = Effects.DetectEdges(image);
-                pictureBox1.Image = processedImage;
-                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-                this.Width = processedImage.Width;
-                this.Height = processedImage.Height;
+                NotVisible();
+                this.Text = "Detect Edges in space domain";
+                PutImage(Effects.DetectEdgesSpace(image));
+                ResizeWindow();
+            }
+            else if (type.Equals("SmootFreq"))
+            {
+                NotVisible();
+                this.Text = "Smoothing Image in frequency domain";
+                PutImage(Effects.SmoothingImageFreq(image));
+                ResizeWindow();
+            }
+            else if (type.Equals("Gauss"))
+            {
+                NotVisible();
+                this.Text = "Restoration Gauss";
+                PutImage(Effects.RestorationGauss(image));
+                ResizeWindow();
+            }
+            else if (type.Equals("Bid"))
+            {
+                NotVisible();
+                this.Text = "Restoration Bidimensional";
+                PutImage(Effects.RestorationBi(image));
+                ResizeWindow();
             }
         }
     }

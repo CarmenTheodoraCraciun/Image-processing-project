@@ -51,3 +51,16 @@ E:\Files\Image-processing-project\bin\Debug\dll\x64\OpenCvSharpExtern.dll
 E:\Files\Image-processing-project\bin\Debug\dll\x64\opencv_videoio_ffmpeg490_64.dll
 E:\Files\Image-processing-project\bin\Debug\OpenCvSharp.xml
 E:\Files\Image-processing-project\obj\Debug\PI_Project.FormApplyOnImage.resources
+E:\Files\Image-processing-project\bin\Debug\Accord.dll.config
+E:\Files\Image-processing-project\bin\Debug\Accord.dll
+E:\Files\Image-processing-project\bin\Debug\Accord.Imaging.dll
+E:\Files\Image-processing-project\bin\Debug\Accord.Math.Core.dll
+E:\Files\Image-processing-project\bin\Debug\Accord.Math.dll
+E:\Files\Image-processing-project\bin\Debug\Accord.Statistics.dll
+E:\Files\Image-processing-project\bin\Debug\AForge.dll
+E:\Files\Image-processing-project\bin\Debug\Accord.xml
+E:\Files\Image-processing-project\bin\Debug\Accord.Imaging.xml
+E:\Files\Image-processing-project\bin\Debug\Accord.Math.xml
+E:\Files\Image-processing-project\bin\Debug\Accord.Math.Core.xml
+E:\Files\Image-processing-project\bin\Debug\Accord.Statistics.xml
+E:\Files\Image-processing-project\bin\Debug\AForge.xml

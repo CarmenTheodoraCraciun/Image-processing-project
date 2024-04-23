@@ -48,9 +48,6 @@ namespace PI_Project
                 binaryImage = null;
 
                 button2.Enabled = true;
-                button3.Enabled = true;
-                button4.Enabled = true;
-                button5.Enabled = true; 
                 button6.Enabled = true;
                 button7.Enabled = true;
             }
@@ -63,46 +60,12 @@ namespace PI_Project
             sfd.Filter = "JPEG files(*.jpeg)|*.jpeg";
             if (DialogResult.OK == sfd.ShowDialog())
             {
-                if (this.pictureBox2 != null)
-                    this.pictureBox2.Image.Save(sfd.FileName, ImageFormat.Jpeg);
-                else
-                    this.pictureBox1.Image.Save(sfd.FileName, ImageFormat.Jpeg);
+               this.pictureBox1.Image.Save(sfd.FileName, ImageFormat.Jpeg);
             }
         }
 
         // Convertire la nuante de gri
-        private void button3_Click(object sender, EventArgs e)
-        {
-            if(grayscaleImage == null)
-                grayscaleImage = Effects.ConvertToGrayscale((Bitmap)pictureBox1.Image);
-
-            label2.Text = "Apply grayscale.";
-            this.pictureBox2.Image = grayscaleImage;
-            this.pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-        }
-
-        // Convertire RGB la HSV
-        private void button4_Click(object sender, EventArgs e)
-        {
-            if(hsvImage == null)
-                hsvImage = Effects.ConvertToHSV((Bitmap)pictureBox1.Image);
-            label2.Text = "Apply HSV.";
-            this.pictureBox2.Image = hsvImage;
-            this.pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-        }
-
-        // Convertirea de la grey la binar
-        private void button5_Click(object sender, EventArgs e)
-        {
-            if(grayscaleImage == null)
-                grayscaleImage = Effects.ConvertToGrayscale((Bitmap)pictureBox1.Image);
-            if (binaryImage == null)
-                binaryImage = Effects.ConvertToBinary(grayscaleImage);
-
-            label2.Text = "Apply binary.";
-            this.pictureBox2.Image = binaryImage;
-            this.pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-        }
+        
 
         private void button6_Click(object sender, EventArgs e)
         {
@@ -115,11 +78,6 @@ namespace PI_Project
             {
                 if (grayscaleImage == null)
                     grayscaleImage = Effects.ConvertToGrayscale((Bitmap)pictureBox1.Image);
-
-                label2.Text = "Grayscale.";
-                this.pictureBox2.Image = grayscaleImage;
-                this.pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-
                 FormHistogram histogram = new FormHistogram(grayscaleImage, "grey");
                 histogram.Show();
 
@@ -134,13 +92,14 @@ namespace PI_Project
                 grayscaleImage = Effects.ConvertToGrayscale((Bitmap)pictureBox1.Image);
             if (binaryImage == null)
                 binaryImage = Effects.ConvertToBinary(grayscaleImage);
-
-            label2.Text = "Apply binary.";
-            this.pictureBox2.Image = binaryImage;
-            this.pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-
             FormApplyOnImage window = null;
-            if (radioButton4.Checked)
+            if (radioButton17.Checked)
+                window = new FormApplyOnImage(grayscaleImage, "Gray");
+            else if (radioButton18.Checked)
+                window = new FormApplyOnImage((Bitmap)pictureBox1.Image, "Hsv");
+            else if (radioButton19.Checked)
+                window = new FormApplyOnImage(binaryImage, "Binary");
+            else if (radioButton4.Checked)
                 window = new FormApplyOnImage(binaryImage, "BFS");
             else if (radioButton3.Checked)
                 window = new FormApplyOnImage(binaryImage, "RsfAlg");
@@ -161,15 +120,22 @@ namespace PI_Project
             else if (radioButton12.Checked)
                 window = new FormApplyOnImage(grayscaleImage, "HistoEq");
             else if (radioButton13.Checked)
-                window = new FormApplyOnImage(original, "Smoot");
+                window = new FormApplyOnImage(original, "SmootSpace");
             else if (radioButton14.Checked)
-                window = new FormApplyOnImage(original, "DtcEdges");
+                window = new FormApplyOnImage(original, "DtcEdgesSpace");
+            else if (radioButton15.Checked)
+                window = new FormApplyOnImage(original, "SmootFreq");
+            else if (radioButton16.Checked)
+                window = new FormApplyOnImage(original, "DtcEdgesFreq");
+            else if (radioButton20.Checked)
+                window = new FormApplyOnImage(original, "Gauss");
+            else if (radioButton21.Checked)
+                window = new FormApplyOnImage(original, "Bid");
             else
                 MessageBox.Show("Choose the type of algorithm");
 
             if (window != null)
                 window.Show();
         }
-
     }
 }

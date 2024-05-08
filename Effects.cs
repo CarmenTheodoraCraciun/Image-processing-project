@@ -5,7 +5,6 @@ using System.Linq;
 
 using OpenCvSharp;
 
-using Point = System.Drawing.Point;
 using System.Drawing.Imaging;
 
 using Accord.Imaging;
@@ -14,6 +13,7 @@ using Accord.Imaging.Filters;
 using System.Numerics;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+
 
 namespace PI_Project
 {
@@ -24,9 +24,9 @@ namespace PI_Project
         {
             int maxX = 0;
             int maxY = 0;
-            foreach (List<Point> points in pointsLists)
+            foreach (List<System.Drawing.Point> points in pointsLists)
             {
-                foreach (Point point in points)
+                foreach (System.Drawing.Point point in points)
                 {
                     if (point.X > maxX)
                         maxX = point.X;
@@ -38,9 +38,9 @@ namespace PI_Project
             using (Graphics g = Graphics.FromImage(graphBitmap))
             {
                 g.Clear(Color.White);
-                foreach (List<Point> points in pointsLists)
+                foreach (List<System.Drawing.Point> points in pointsLists)
                 {
-                    foreach (Point point in points)
+                    foreach (System.Drawing.Point point in points)
                     {
                         char symbol = points.Count > 0 ? '>' : '<';
                         g.DrawString(symbol.ToString(), new Font("Arial", 8), Brushes.Black, point.X, point.Y);
@@ -317,9 +317,9 @@ namespace PI_Project
         /*********************Tema 4*********************/
 
         // Algoritmul Traversare in latime
-        public static List<List<Point>> BFS(Bitmap bitmap)
+        public static List<List<System.Drawing.Point>> BFS(Bitmap bitmap)
         {
-            List<List<Point>> objects = new List<List<Point>>();
+            List<List<System.Drawing.Point>> objects = new List<List<System.Drawing.Point>>();
             bool[,] visited = new bool[bitmap.Width, bitmap.Height];
             for (int y = 0; y < bitmap.Height; y++)
             {
@@ -329,13 +329,13 @@ namespace PI_Project
                     int luminance = (int)(0.299 * pixelColor.R + 0.587 * pixelColor.G + 0.114 * pixelColor.B);
                     if (luminance < 128 && !visited[x, y])
                     {
-                        List<Point> obj = new List<Point>();
-                        Queue<Point> queue = new Queue<Point>();
-                        queue.Enqueue(new Point(x, y));
+                        List<System.Drawing.Point> obj = new List<System.Drawing.Point>();
+                        Queue<System.Drawing.Point> queue = new Queue<System.Drawing.Point>();
+                        queue.Enqueue(new System.Drawing.Point(x, y));
                         visited[x, y] = true;
                         while (queue.Count > 0)
                         {
-                            Point current = queue.Dequeue();
+                            System.Drawing.Point current = queue.Dequeue();
                             obj.Add(current);
                             int[] dx = { 1, -1, 0, 0 };
                             int[] dy = { 0, 0, 1, -1 };
@@ -350,7 +350,7 @@ namespace PI_Project
                                     int newLuminance = (int)(0.299 * newPixelColor.R + 0.587 * newPixelColor.G + 0.114 * newPixelColor.B);
                                     if (newLuminance < 128)
                                     {
-                                        queue.Enqueue(new Point(newX, newY));
+                                        queue.Enqueue(new System.Drawing.Point(newX, newY));
                                         visited[newX, newY] = true;
                                     }
                                 }
@@ -386,7 +386,7 @@ namespace PI_Project
         /*********************Tema 5*********************/
 
         // Calculul ariilor obiectelor dintr-o imagine data ca matrice de puncte
-        public static List<double> CalculateAreas(List<List<Point>> objects)
+        public static List<double> CalculateAreas(List<List<System.Drawing.Point>> objects)
         {
             List<double> areas = new List<double>();
             foreach (var obj in objects)
@@ -398,7 +398,7 @@ namespace PI_Project
         }
 
         // Calculul perimetrelor obiectelor dintr-o imagine data ca matrice de puncte
-        public static List<double> CalculatePerimeters(List<List<Point>> objects)
+        public static List<double> CalculatePerimeters(List<List<System.Drawing.Point>> objects)
         {
             List<double> perimeters = new List<double>();
             foreach (var obj in objects)
@@ -406,8 +406,8 @@ namespace PI_Project
                 double perimeter = 0;
                 for (int i = 0; i < obj.Count; i++)
                 {
-                    Point currentPoint = obj[i];
-                    Point nextPoint = obj[(i + 1) % obj.Count];
+                    System.Drawing.Point currentPoint = obj[i];
+                    System.Drawing.Point nextPoint = obj[(i + 1) % obj.Count];
                     double distance = Math.Sqrt(Math.Pow(nextPoint.X - currentPoint.X, 2) + Math.Pow(nextPoint.Y - currentPoint.Y, 2));
                     perimeter += distance;
                 }
@@ -417,9 +417,9 @@ namespace PI_Project
         }
 
         // Calculul centrele de greutate obiectelor dintr-o imagine data ca matrice de puncte
-        public static List<Point> CalculateCentroids(List<List<Point>> objects)
+        public static List<System.Drawing.Point> CalculateCentroids(List<List<System.Drawing.Point>> objects)
         {
-            List<Point> centroids = new List<Point>();
+            List<System.Drawing.Point> centroids = new List<System.Drawing.Point>();
             foreach (var obj in objects)
             {
                 int sumX = 0;
@@ -432,7 +432,7 @@ namespace PI_Project
                 }
                 int centerX = sumX / totalPoints;
                 int centerY = sumY / totalPoints;
-                centroids.Add(new Point(centerX, centerY));
+                centroids.Add(new System.Drawing.Point(centerX, centerY));
             }
             return centroids;
         }
@@ -449,7 +449,7 @@ namespace PI_Project
         }
 
         // Gasirea contururilor unei imagini
-        public static List<List<Point>> FindContours(Bitmap binaryImage)
+        public static List<List<System.Drawing.Point>> FindContours(Bitmap binaryImage)
         {
             Mat image = BitmapToMat(binaryImage);
             Cv2.CvtColor(image, image, ColorConversionCodes.BGR2GRAY);
@@ -469,7 +469,7 @@ namespace PI_Project
         }
 
         // Extragerea codurilor inlantuite pentru obiectele din imagine
-        public static List<int> extractChainCode(List<List<Point>> contours)
+        public static List<int> extractChainCode(List<List<System.Drawing.Point>> contours)
         {
             if (contours.Count == 0)
             {
@@ -913,73 +913,23 @@ namespace PI_Project
             return filteredBitmap;
         }
 
-        // Funcție pentru aplicarea unui filtru pasaj ridicat (Laplacian) în domeniul frecvențial
-        private static void ApplyHighPassFilter(ComplexImage complexImage)
-        {
-            int width = complexImage.Width;
-            int height = complexImage.Height;
-            int centerX = width / 2;
-            int centerY = height / 2;
-            double[,] laplacianFilter = new double[3, 3] {
-                { -1, -1, -1 },
-                { -1,  8, -1 },
-                { -1, -1, -1 }
-            };
-            for (int y = 0; y < height; y++)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    double laplacianValue = 0;
-                    for (int j = -1; j <= 1; j++)
-                    {
-                        for (int i = -1; i <= 1; i++)
-                        {
-                            int neighborX = x + i;
-                            int neighborY = y + j;
-                            if (neighborX >= 0 && neighborX < width && neighborY >= 0 && neighborY < height)
-                            {
-                                double neighborValue = complexImage.Data[neighborY, neighborX].Real;
-                                laplacianValue += neighborValue * laplacianFilter[j + 1, i + 1];
-                            }
-                        }
-                    }
-                    complexImage.Data[y, x] = new Complex(laplacianValue, 0);
-                }
-            }
-        }
-
-        // Filtru "trece sus" (de evidenţiere a muchiilor) in domeniul spatial
-        public static Bitmap DetectEdgesFreq(Bitmap bitmap)
-        {
-            int newWidth = RoundUpToPowerOfTwo(bitmap.Width);
-            int newHeight = RoundUpToPowerOfTwo(bitmap.Height);
-            Bitmap resizedBitmap = ResizeBitmap(bitmap, newWidth, newHeight);
-            Bitmap filteredBitmap = (Bitmap)resizedBitmap.Clone();
-            Grayscale filterGray = new Grayscale(0.2125, 0.7154, 0.0721);
-            filteredBitmap = filterGray.Apply(filteredBitmap);
-            ComplexImage complexImage = ComplexImage.FromBitmap(filteredBitmap);
-            complexImage.ForwardFourierTransform();
-            ApplyHighPassFilter(complexImage);
-            complexImage.BackwardFourierTransform();
-            filteredBitmap = complexImage.ToBitmap();
-            filteredBitmap = ResizeBitmap(filteredBitmap, bitmap.Width, bitmap.Height);
-            return filteredBitmap;
-        }
-
         /*********************Tema 11*********************/
 
         // Restaurarea unei imagini folosind un algo cu un nucleu gaussian
-        public static Bitmap RestorationGauss(Bitmap bitmap)
+        public static (Bitmap, double) RestorationGauss(Bitmap bitmap)
         {
+            DateTime startTime = DateTime.Now;
             Bitmap filteredBitmap = (Bitmap)bitmap.Clone();
             GaussianBlur filterGaussian = new GaussianBlur(5, 3);
             filteredBitmap = filterGaussian.Apply(filteredBitmap);
-            return filteredBitmap;
+            TimeSpan elapsedTime = DateTime.Now - startTime;
+            return (filteredBitmap, elapsedTime.TotalMilliseconds);
         }
 
         // Restaurarea unei imagini folosing un alog cu un nucleu bidimensional
-        public static Bitmap RestorationBi(Bitmap bitmap)
+        public static (Bitmap, double) RestorationBi(Bitmap bitmap)
         {
+            DateTime startTime = DateTime.Now;
             Bitmap filteredBitmap = (Bitmap)bitmap.Clone();
             int[,] kernel = {
                 { 1, 2, 1 },
@@ -988,8 +938,33 @@ namespace PI_Project
             };
             Convolution filterConvolution = new Convolution(kernel);
             filteredBitmap = filterConvolution.Apply(filteredBitmap);
-            return filteredBitmap;
+            TimeSpan elapsedTime = DateTime.Now - startTime;
+            return (filteredBitmap, elapsedTime.TotalMilliseconds); ;
+        }
+
+        /*********************Tema 12*********************/
+
+        // Binarizare adaptiva a punctelor de muchie
+        public static (Bitmap,Mat) AdaptiveEdgeThresholding(Bitmap inputImage)
+        {
+            Mat inputMat = BitmapToMat(inputImage);
+            Mat grayMat = new Mat();
+            Cv2.CvtColor(inputMat, grayMat, ColorConversionCodes.BGR2GRAY);
+            Mat edgeMat = new Mat();
+            Cv2.Canny(grayMat, edgeMat, 100, 200);
+            Mat adaptiveThresholdMat = new Mat();
+            Cv2.AdaptiveThreshold(edgeMat, adaptiveThresholdMat, 255, AdaptiveThresholdTypes.MeanC, ThresholdTypes.Binary, 9, 2);
+            return (MatToBitmap(adaptiveThresholdMat), adaptiveThresholdMat);
+        }
+
+        // Prelungire a muchiilor prin histereza
+        public static Bitmap EdgeExtensionThresholding(Mat inputImage)
+        {
+            // Aplică histereză direct pe imaginea de intrare binarizată adaptiv
+            Mat hysteresisMat = new Mat();
+            Cv2.Dilate(inputImage, hysteresisMat, new Mat(), null, 1);
+            Cv2.Erode(hysteresisMat, hysteresisMat, new Mat(), null, 1);
+            return MatToBitmap(hysteresisMat);
         }
     }
-
 }

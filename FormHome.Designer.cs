@@ -38,6 +38,9 @@
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.radioButton22 = new System.Windows.Forms.RadioButton();
+            this.radioButton21 = new System.Windows.Forms.RadioButton();
+            this.radioButton20 = new System.Windows.Forms.RadioButton();
             this.radioButton19 = new System.Windows.Forms.RadioButton();
             this.radioButton18 = new System.Windows.Forms.RadioButton();
             this.radioButton17 = new System.Windows.Forms.RadioButton();
@@ -58,8 +61,7 @@
             this.button7 = new System.Windows.Forms.Button();
             this.radioButton6 = new System.Windows.Forms.RadioButton();
             this.radioButton4 = new System.Windows.Forms.RadioButton();
-            this.radioButton20 = new System.Windows.Forms.RadioButton();
-            this.radioButton21 = new System.Windows.Forms.RadioButton();
+            this.radioButton23 = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -163,6 +165,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.radioButton23);
+            this.groupBox2.Controls.Add(this.radioButton22);
             this.groupBox2.Controls.Add(this.radioButton21);
             this.groupBox2.Controls.Add(this.radioButton20);
             this.groupBox2.Controls.Add(this.radioButton19);
@@ -192,6 +196,36 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Apply to the image";
             // 
+            // radioButton22
+            // 
+            this.radioButton22.AutoSize = true;
+            this.radioButton22.Location = new System.Drawing.Point(6, 414);
+            this.radioButton22.Name = "radioButton22";
+            this.radioButton22.Size = new System.Drawing.Size(171, 24);
+            this.radioButton22.TabIndex = 27;
+            this.radioButton22.Text = "Adaptive Binaririze";
+            this.radioButton22.UseVisualStyleBackColor = true;
+            // 
+            // radioButton21
+            // 
+            this.radioButton21.AutoSize = true;
+            this.radioButton21.Location = new System.Drawing.Point(193, 86);
+            this.radioButton21.Name = "radioButton21";
+            this.radioButton21.Size = new System.Drawing.Size(135, 24);
+            this.radioButton21.TabIndex = 26;
+            this.radioButton21.Text = "Bidimensional";
+            this.radioButton21.UseVisualStyleBackColor = true;
+            // 
+            // radioButton20
+            // 
+            this.radioButton20.AutoSize = true;
+            this.radioButton20.Location = new System.Drawing.Point(193, 56);
+            this.radioButton20.Name = "radioButton20";
+            this.radioButton20.Size = new System.Drawing.Size(101, 24);
+            this.radioButton20.TabIndex = 25;
+            this.radioButton20.Text = "Gaussian";
+            this.radioButton20.UseVisualStyleBackColor = true;
+            // 
             // radioButton19
             // 
             this.radioButton19.AutoSize = true;
@@ -199,7 +233,6 @@
             this.radioButton19.Name = "radioButton19";
             this.radioButton19.Size = new System.Drawing.Size(78, 24);
             this.radioButton19.TabIndex = 24;
-            this.radioButton19.TabStop = true;
             this.radioButton19.Text = "Binary";
             this.radioButton19.UseVisualStyleBackColor = true;
             // 
@@ -210,7 +243,6 @@
             this.radioButton18.Name = "radioButton18";
             this.radioButton18.Size = new System.Drawing.Size(65, 24);
             this.radioButton18.TabIndex = 23;
-            this.radioButton18.TabStop = true;
             this.radioButton18.Text = "HSV";
             this.radioButton18.UseVisualStyleBackColor = true;
             // 
@@ -221,29 +253,26 @@
             this.radioButton17.Name = "radioButton17";
             this.radioButton17.Size = new System.Drawing.Size(106, 24);
             this.radioButton17.TabIndex = 22;
-            this.radioButton17.TabStop = true;
             this.radioButton17.Text = "Grayscale";
             this.radioButton17.UseVisualStyleBackColor = true;
             // 
             // radioButton16
             // 
             this.radioButton16.AutoSize = true;
-            this.radioButton16.Location = new System.Drawing.Point(204, 159);
+            this.radioButton16.Location = new System.Drawing.Point(193, 247);
             this.radioButton16.Name = "radioButton16";
             this.radioButton16.Size = new System.Drawing.Size(132, 24);
             this.radioButton16.TabIndex = 17;
-            this.radioButton16.TabStop = true;
             this.radioButton16.Text = "Detect Edges";
             this.radioButton16.UseVisualStyleBackColor = true;
             // 
             // radioButton15
             // 
             this.radioButton15.AutoSize = true;
-            this.radioButton15.Location = new System.Drawing.Point(204, 129);
+            this.radioButton15.Location = new System.Drawing.Point(193, 217);
             this.radioButton15.Name = "radioButton15";
             this.radioButton15.Size = new System.Drawing.Size(109, 24);
             this.radioButton15.TabIndex = 16;
-            this.radioButton15.TabStop = true;
             this.radioButton15.Text = "Smoothing";
             this.radioButton15.UseVisualStyleBackColor = true;
             // 
@@ -251,7 +280,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.Location = new System.Drawing.Point(205, 106);
+            this.label4.Location = new System.Drawing.Point(194, 194);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(96, 20);
             this.label4.TabIndex = 21;
@@ -260,22 +289,20 @@
             // radioButton14
             // 
             this.radioButton14.AutoSize = true;
-            this.radioButton14.Location = new System.Drawing.Point(204, 76);
+            this.radioButton14.Location = new System.Drawing.Point(193, 164);
             this.radioButton14.Name = "radioButton14";
             this.radioButton14.Size = new System.Drawing.Size(132, 24);
             this.radioButton14.TabIndex = 17;
-            this.radioButton14.TabStop = true;
             this.radioButton14.Text = "Detect Edges";
             this.radioButton14.UseVisualStyleBackColor = true;
             // 
             // radioButton13
             // 
             this.radioButton13.AutoSize = true;
-            this.radioButton13.Location = new System.Drawing.Point(204, 46);
+            this.radioButton13.Location = new System.Drawing.Point(193, 134);
             this.radioButton13.Name = "radioButton13";
             this.radioButton13.Size = new System.Drawing.Size(109, 24);
             this.radioButton13.TabIndex = 16;
-            this.radioButton13.TabStop = true;
             this.radioButton13.Text = "Smoothing";
             this.radioButton13.UseVisualStyleBackColor = true;
             // 
@@ -283,7 +310,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label3.Location = new System.Drawing.Point(200, 23);
+            this.label3.Location = new System.Drawing.Point(189, 110);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(67, 20);
             this.label3.TabIndex = 20;
@@ -296,7 +323,6 @@
             this.radioButton11.Name = "radioButton11";
             this.radioButton11.Size = new System.Drawing.Size(173, 24);
             this.radioButton11.TabIndex = 14;
-            this.radioButton11.TabStop = true;
             this.radioButton11.Text = "Brightness Change";
             this.radioButton11.UseVisualStyleBackColor = true;
             // 
@@ -307,7 +333,6 @@
             this.radioButton12.Name = "radioButton12";
             this.radioButton12.Size = new System.Drawing.Size(126, 24);
             this.radioButton12.TabIndex = 15;
-            this.radioButton12.TabStop = true;
             this.radioButton12.Text = "Histog Equal";
             this.radioButton12.UseVisualStyleBackColor = true;
             // 
@@ -318,7 +343,6 @@
             this.radioButton10.Name = "radioButton10";
             this.radioButton10.Size = new System.Drawing.Size(172, 24);
             this.radioButton10.TabIndex = 13;
-            this.radioButton10.TabStop = true;
             this.radioButton10.Text = "Gamma Correction";
             this.radioButton10.UseVisualStyleBackColor = true;
             // 
@@ -329,7 +353,6 @@
             this.radioButton9.Name = "radioButton9";
             this.radioButton9.Size = new System.Drawing.Size(156, 24);
             this.radioButton9.TabIndex = 12;
-            this.radioButton9.TabStop = true;
             this.radioButton9.Text = "Contrast Change";
             this.radioButton9.UseVisualStyleBackColor = true;
             // 
@@ -340,7 +363,6 @@
             this.radioButton8.Name = "radioButton8";
             this.radioButton8.Size = new System.Drawing.Size(71, 24);
             this.radioButton8.TabIndex = 11;
-            this.radioButton8.TabStop = true;
             this.radioButton8.Text = "Invert";
             this.radioButton8.UseVisualStyleBackColor = true;
             // 
@@ -351,7 +373,6 @@
             this.radioButton7.Name = "radioButton7";
             this.radioButton7.Size = new System.Drawing.Size(131, 24);
             this.radioButton7.TabIndex = 10;
-            this.radioButton7.TabStop = true;
             this.radioButton7.Text = "Auto Binarize";
             this.radioButton7.UseVisualStyleBackColor = true;
             // 
@@ -362,7 +383,6 @@
             this.radioButton5.Name = "radioButton5";
             this.radioButton5.Size = new System.Drawing.Size(74, 24);
             this.radioButton5.TabIndex = 1;
-            this.radioButton5.TabStop = true;
             this.radioButton5.Text = "Erode";
             this.radioButton5.UseVisualStyleBackColor = true;
             // 
@@ -373,7 +393,6 @@
             this.radioButton3.Name = "radioButton3";
             this.radioButton3.Size = new System.Drawing.Size(105, 24);
             this.radioButton3.TabIndex = 1;
-            this.radioButton3.TabStop = true;
             this.radioButton3.Text = "Rosenfeld";
             this.radioButton3.UseVisualStyleBackColor = true;
             // 
@@ -381,7 +400,7 @@
             // 
             this.button7.Enabled = false;
             this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button7.Location = new System.Drawing.Point(204, 250);
+            this.button7.Location = new System.Drawing.Point(193, 278);
             this.button7.Margin = new System.Windows.Forms.Padding(4);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(94, 26);
@@ -397,7 +416,6 @@
             this.radioButton6.Name = "radioButton6";
             this.radioButton6.Size = new System.Drawing.Size(74, 24);
             this.radioButton6.TabIndex = 0;
-            this.radioButton6.TabStop = true;
             this.radioButton6.Text = "Dilate";
             this.radioButton6.UseVisualStyleBackColor = true;
             // 
@@ -408,31 +426,18 @@
             this.radioButton4.Name = "radioButton4";
             this.radioButton4.Size = new System.Drawing.Size(63, 24);
             this.radioButton4.TabIndex = 0;
-            this.radioButton4.TabStop = true;
             this.radioButton4.Text = "BFS";
             this.radioButton4.UseVisualStyleBackColor = true;
             // 
-            // radioButton20
+            // radioButton23
             // 
-            this.radioButton20.AutoSize = true;
-            this.radioButton20.Location = new System.Drawing.Point(204, 189);
-            this.radioButton20.Name = "radioButton20";
-            this.radioButton20.Size = new System.Drawing.Size(101, 24);
-            this.radioButton20.TabIndex = 25;
-            this.radioButton20.TabStop = true;
-            this.radioButton20.Text = "Gaussian";
-            this.radioButton20.UseVisualStyleBackColor = true;
-            // 
-            // radioButton21
-            // 
-            this.radioButton21.AutoSize = true;
-            this.radioButton21.Location = new System.Drawing.Point(204, 219);
-            this.radioButton21.Name = "radioButton21";
-            this.radioButton21.Size = new System.Drawing.Size(135, 24);
-            this.radioButton21.TabIndex = 26;
-            this.radioButton21.TabStop = true;
-            this.radioButton21.Text = "Bidimensional";
-            this.radioButton21.UseVisualStyleBackColor = true;
+            this.radioButton23.AutoSize = true;
+            this.radioButton23.Location = new System.Drawing.Point(193, 26);
+            this.radioButton23.Name = "radioButton23";
+            this.radioButton23.Size = new System.Drawing.Size(146, 24);
+            this.radioButton23.TabIndex = 28;
+            this.radioButton23.Text = "Edge Extension";
+            this.radioButton23.UseVisualStyleBackColor = true;
             // 
             // ImageEffects
             // 
@@ -497,6 +502,8 @@
         private System.Windows.Forms.RadioButton radioButton17;
         private System.Windows.Forms.RadioButton radioButton21;
         private System.Windows.Forms.RadioButton radioButton20;
+        private System.Windows.Forms.RadioButton radioButton22;
+        private System.Windows.Forms.RadioButton radioButton23;
     }
 }
 

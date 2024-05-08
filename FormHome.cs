@@ -25,7 +25,6 @@ namespace PI_Project
 
         private Bitmap original = null;
         private Bitmap grayscaleImage = null;
-        private Bitmap hsvImage = null;
         private Bitmap binaryImage = null;
 
         /*-----------------------------------------
@@ -44,7 +43,6 @@ namespace PI_Project
 
                 original = (Bitmap)(this.pictureBox1.Image);
                 grayscaleImage = null;
-                hsvImage = null;
                 binaryImage = null;
 
                 button2.Enabled = true;
@@ -131,6 +129,10 @@ namespace PI_Project
                 window = new FormApplyOnImage(original, "Gauss");
             else if (radioButton21.Checked)
                 window = new FormApplyOnImage(original, "Bid");
+            else if (radioButton22.Checked)
+                window = new FormApplyOnImage(original, "AdpBin");
+            else if (radioButton23.Checked)
+                window = new FormApplyOnImage(original, "EdgeExt");
             else
                 MessageBox.Show("Choose the type of algorithm");
 

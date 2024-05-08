@@ -64,3 +64,8 @@ E:\Files\Image-processing-project\bin\Debug\Accord.Math.xml
 E:\Files\Image-processing-project\bin\Debug\Accord.Math.Core.xml
 E:\Files\Image-processing-project\bin\Debug\Accord.Statistics.xml
 E:\Files\Image-processing-project\bin\Debug\AForge.xml
+E:\Files\Image-processing-project\bin\Debug\AForge.Imaging.dll
+E:\Files\Image-processing-project\bin\Debug\AForge.Math.dll
+E:\Files\Image-processing-project\bin\Debug\AForge.Imaging.xml
+E:\Files\Image-processing-project\bin\Debug\AForge.Math.xml
+E:\Files\Image-processing-project\bin\Debug\System.Diagnostics.DiagnosticSource.dll
